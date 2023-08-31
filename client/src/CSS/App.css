@@ -47,14 +47,19 @@ Nav Bar
     color: #3ba7f5; /* Change color on hover */
 }
 
+.close:hover {
+    background-color: white;
+    color: #3498db;
+}
+
 /* login window
  */
 .popup-container {
-    text-align: center;
+    text-align: left;
 }
 
 .popup {
-    right: 1%;
+    right: 0%;
     top: 110px;
     background: #545454;
     position: absolute;

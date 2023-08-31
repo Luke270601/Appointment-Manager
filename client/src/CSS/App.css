@@ -98,3 +98,10 @@ Calender
     text-align: center;
 }
 
+/*
+Base Formatting 
+ */
+
+body{
+    background-color: #6d6d6d;
+}

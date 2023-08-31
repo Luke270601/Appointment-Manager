@@ -1,0 +1,95 @@
+/*
+Nav Bar
+ */
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.logo {
+    font-size: 1rem;
+    margin-right: auto; /* Pushes the logo to the left */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login {
+    padding: inherit;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #3ba7f5; /* Change color on hover */
+}
+
+.login:hover {
+    color: #3ba7f5; /* Change color on hover */
+}
+
+/* login window
+ */
+.popup-container {
+    text-align: center;
+}
+
+.popup {
+    right: 1%;
+    top: 110px;
+    background: #545454;
+    position: absolute;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    /* Add transition properties */
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.popup.open {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/*
+Calender
+ */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Creates 7 columns */
+    grid-template-rows: repeat(6, 1fr); /* Creates 7 rows */
+    gap: 10px; /* Gap between grid items */
+    width: 500px; /* Set a width for the grid container */
+    margin: 0 auto; /* Center the grid container */
+}
+
+.grid-item {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+

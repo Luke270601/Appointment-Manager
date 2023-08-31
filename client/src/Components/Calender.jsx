@@ -28,15 +28,15 @@ export default function Calendar() {
             gridSize = 49
         }
         let box = document.getElementById("item 7")
-        let daysOfWeek = ["Monday", "Tueday", "Wednesdaay", "Thursday", "Friday", "Saturday", "Sunday"]
+        let daysOfWeek = ["Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         // eslint-disable-next-line default-case
-        switch (daysList[0].dayName) {
-
-                startDay = 13
-                box = document.getElementById("item 13")
+        for(let i = 0; i < 7; i++){ 
+            if(daysList[0].dayName === daysOfWeek[i]){
+                startDay = i + 7
+                box = document.getElementById("item " + startDay)
                 box.innerText = (1).toString();
-                break;
-        }
+            }
+    }
 
         for (let i = 1; i < daysList.length; i++) {
             box = document.getElementById("item " + (startDay + i))
@@ -46,7 +46,7 @@ export default function Calendar() {
     }
 
     function getDaysInMonth(year, month) {
-        const daysInMonth = new Date(year, month, 0).getDate();
+        const daysInMonth = new Date(year, month+1, 0).getDate();
         const daysList = [];
 
         for (let day = 1; day <= daysInMonth; day++) {

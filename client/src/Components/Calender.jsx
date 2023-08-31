@@ -28,7 +28,7 @@ export default function Calendar() {
             gridSize = 49
         }
         let box = document.getElementById("item 7")
-        let daysOfWeek = ["Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        let daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         // eslint-disable-next-line default-case
         for(let i = 0; i < 7; i++){ 
             if(daysList[0].dayName === daysOfWeek[i]){

@@ -14,23 +14,31 @@ export function RegisterComponent (){
     };
 
     const handleRegister = async () => {
-        try {
-          const response = await fetch(`/register?email=${email}&password=${password}`);
-          const data = await response.json();
-          
-          if (response.ok) {
-            // Login successful, handle accordingly (e.g., redirect)
-            console.log(data.message);
-            navigate("/")
-            alert("Account Created, you can now login!")
-          } else {
-            // Login failed, handle accordingly (e.g., show error message)
-            console.log(data.error);
-          }
-        } catch (error) {
-          console.error("An error occurred:", error);
+      try {
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }), // Send email and password in the request body
+        });
+    
+        const data = await response.json();
+    
+        if (response.ok) {
+          // Registration successful, handle accordingly (e.g., redirect)
+          console.log(data.message);
+          navigate("/");
+          alert("Account Created, you can now login!");
+        } else {
+          // Registration failed, handle accordingly (e.g., show error message)
+          console.log(data.error);
         }
-      };
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    
 
     return(
         <div id='register-component'>

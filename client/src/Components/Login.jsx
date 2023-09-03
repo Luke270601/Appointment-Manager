@@ -9,17 +9,24 @@ const PromptPopup = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  
   const handleLogin = async () => {
     try {
-      const response = await fetch(`/login?email=${email}&password=${password}`);
-      const data = await response.json();
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }), // Send email and password in the request body
+      });
       
+      const data = await response.json();
+  
       if (response.ok) {
         // Login successful, handle accordingly (e.g., redirect)
         console.log(data.message);
-        closePopup()
-        navigate("/calender")
+        closePopup();
+        navigate("/calender");
       } else {
         // Login failed, handle accordingly (e.g., show error message)
         console.log(data.error);
@@ -28,6 +35,7 @@ const PromptPopup = () => {
       console.error("An error occurred:", error);
     }
   };
+  
 
   useEffect(() => {
     const handleOutsideClick = (event) => {

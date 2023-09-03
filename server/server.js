@@ -14,17 +14,34 @@ app.use(session({
 const userArray = [
   {
     email: "user1@example.com",
-    password: "password123"
+    password: "password123",
+    role: "Business"
   },
   {
     email: "user2@example.com",
-    password: "securepass456"
+    password: "securepass456",
+    role: "User"
   },
   {
     email: "user3@example.com",
-    password: "letmein789"
+    password: "letmein789",
+    role: "Admin"
   }
 ];
+
+// Middleware function to check if a user has a specific role
+const hasRole = (role) => {
+  return (req, res, next) => {
+    const user = req.user; // Assuming you have user data in the request (e.g., from Passport.js)
+    
+    if (user && user.roles && user.roles.includes(role)) {
+      return next(); // User has the required role; continue with the next middleware
+    } else {
+      return res.status(403).json({ error: "Access denied" }); // User doesn't have the required role
+    }
+  };
+};
+
 
 // Middleware to parse JSON data from the request body
 app.use(bodyParser.json());
@@ -55,7 +72,7 @@ app.post('/register', (req, res) => {
     return res.status(400).json({ error: "Email and password are required." });
   }
 
-  // Check if the user already exists in the array (you can add more validation logic here)
+  // Check if the user already exists in the array 
   const userExists = userArray.some((user) => user.email === email);
 
   if (userExists) {
@@ -69,9 +86,5 @@ app.post('/register', (req, res) => {
 
   return res.json({ message: "Account Registered!" });
 });
-
-app.get("/api", (req, res) => {
-  res.json({ "users": ["userFour", "userTwo", "userThree"] });
-})
 
 app.listen(5000, () => { console.log("Server starting on port 5000") });

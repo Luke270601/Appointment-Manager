@@ -1,7 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const session = require('express-session');
 const app = express();
+
+app.use(session({
+  secret: 'some secret',
+  resave: false,
+  cookie: { maxAge: 30000 },
+  saveUninitialized: false
+}))
 
 // Dummy user data
 const userArray = [
@@ -22,9 +29,9 @@ const userArray = [
 // Middleware to parse JSON data from the request body
 app.use(bodyParser.json());
 
-// GET route to handle user authentication
-app.get('/login', (req, res) => {
-  const { email, password } = req.query;
+// POST route to handle user authentication (login)
+app.post('/login', (req, res) => {
+  const { email, password } = req.body; // Use req.body to access JSON data
 
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required." });
@@ -40,36 +47,31 @@ app.get('/login', (req, res) => {
   return res.status(401).json({ error: "Invalid email or password." });
 });
 
-app.get('/login', (req, res) => {
-  const { email, password } = req.query;
+// POST route to handle user registration
+app.post('/register', (req, res) => {
+  const { email, password } = req.body; // Use req.body to access JSON data
 
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required." });
   }
 
-  // Loop through userArray to find a matching user
-  for (const user of userArray) {
-    if (user.email === email && user.password === password) {
-      return res.json({ message: "Login successful!" });
-    }
+  // Check if the user already exists in the array (you can add more validation logic here)
+  const userExists = userArray.some((user) => user.email === email);
+
+  if (userExists) {
+    return res.status(409).json({ error: "Email already registered." });
   }
 
-  return res.status(401).json({ error: "Invalid email or password." });
-});
-
-app.get('/register', (req, res) => {
-  const { email, password } = req.query;
-  userArray.push(  
-    {
+  userArray.push({
     email: email,
     password: password
-    }
-  )
+  });
+
   return res.json({ message: "Account Registered!" });
 });
 
 app.get("/api", (req, res) => {
-    res.json({"users": ["userFour", "userTwo", "userThree"]}) 
+  res.json({ "users": ["userFour", "userTwo", "userThree"] });
 })
 
-app.listen(5000, () => {console.log("Server starting on port 5000")})
+app.listen(5000, () => { console.log("Server starting on port 5000") });

@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 const app = express();
 
@@ -22,7 +21,6 @@ const userArray = [
 
 // Middleware to parse JSON data from the request body
 app.use(bodyParser.json());
-app.use(cors());
 
 // GET route to handle user authentication
 app.get('/login', (req, res) => {
@@ -40,6 +38,34 @@ app.get('/login', (req, res) => {
   }
 
   return res.status(401).json({ error: "Invalid email or password." });
+});
+
+app.get('/login', (req, res) => {
+  const { email, password } = req.query;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required." });
+  }
+
+  // Loop through userArray to find a matching user
+  for (const user of userArray) {
+    if (user.email === email && user.password === password) {
+      return res.json({ message: "Login successful!" });
+    }
+  }
+
+  return res.status(401).json({ error: "Invalid email or password." });
+});
+
+app.get('/register', (req, res) => {
+  const { email, password } = req.query;
+  userArray.push(  
+    {
+    email: email,
+    password: password
+    }
+  )
+  return res.json({ message: "Account Registered!" });
 });
 
 app.get("/api", (req, res) => {

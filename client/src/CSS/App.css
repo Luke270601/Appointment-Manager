@@ -19,7 +19,17 @@ Nav Bar
     display: flex;
 }
 
+li{
+    color: white;
+    list-style: none;
+}
+
+input{
+    background-color: #b0a8a8;
+}
+
 .nav-links li {
+    color: white;
     margin-right: 20px;
 }
 

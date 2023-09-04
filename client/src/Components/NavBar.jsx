@@ -43,7 +43,7 @@ export function NavBar() {
         </div>
       {loggedIn ? (
           <ul className={"nav-links"}>
-            <li><Link to={"/register"}>Account</Link></li>
+            <li><Link to={"/account"}>Account</Link></li>
           </ul>
       ) : (
         <nav className="navbar">

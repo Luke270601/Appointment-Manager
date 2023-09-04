@@ -15,7 +15,7 @@ const userArray = [
   {
     email: "user1@example.com",
     password: "password123",
-    role: "Business"
+    role: "User"
   },
   {
     email: "user2@example.com",

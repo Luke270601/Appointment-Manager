@@ -1,14 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cors = require('cors')
+const cookieParser = require('cookie-parser');
 const app = express();
+
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
   secret: 'some secret',
+  key: 'userId',
   resave: false,
-  cookie: { maxAge: 30000 },
+  cookie: { maxAge: 60 * 60 * 24 * 1000 },
   saveUninitialized: false
-}))
+}));
 
 // Dummy user data
 const userArray = [
@@ -57,12 +69,23 @@ app.post('/login', (req, res) => {
   // Loop through userArray to find a matching user
   for (const user of userArray) {
     if (user.email === email && user.password === password) {
+      req.session.user = user;
+      console.log(req.session.user);
       return res.json({ message: "Login successful!" });
     }
   }
 
   return res.status(401).json({ error: "Invalid email or password." });
 });
+
+app.get('/login', (req, res) => {
+  if(req.session.user){
+    res.send({loggedIn: true})
+  }
+  else{
+    res.send({loggedIn: false})
+  }
+})
 
 // POST route to handle user registration
 app.post('/register', (req, res) => {

@@ -75,6 +75,16 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/logout', async (req, res) => {
+  try {
+    req.session.user = null;
+    return res.json({ message: "Logout successful!" });
+  } catch (err) {
+    console.error('Error logging out user:', err);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+});
+
 
 app.get('/login', (req, res) => {
   if(req.session.user){

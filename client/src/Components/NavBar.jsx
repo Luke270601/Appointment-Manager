@@ -5,6 +5,23 @@ import React, { useState, useEffect } from 'react';
 export function NavBar() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  function logout(){
+    fetch("/logout")
+      .then(data => {
+        if (data.loggedIn) {
+          setLoggedIn(true);
+        }
+        else{
+          setLoggedIn(false);
+        }
+        setIsLoading(false); // Set loading state to false when fetch is done
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setIsLoading(false); // Set loading state to false in case of an error
+      });
+  }
 
   useEffect(() => {
     fetch("/login")
@@ -12,6 +29,9 @@ export function NavBar() {
       .then(data => {
         if (data.loggedIn) {
           setLoggedIn(true);
+        }
+        else{
+          setLoggedIn(false);
         }
         setIsLoading(false); // Set loading state to false when fetch is done
       })
@@ -43,6 +63,7 @@ export function NavBar() {
         </div>
       {loggedIn ? (
           <ul className={"nav-links"}>
+            <li onClick={logout}><Link to={"/"}>Logout</Link></li>
             <li><Link to={"/account"}>Account</Link></li>
           </ul>
       ) : (

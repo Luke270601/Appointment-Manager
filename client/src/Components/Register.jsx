@@ -8,11 +8,12 @@ export function RegisterComponent (){
     const [email, setEmail] = useState('');
     const navigate = useNavigate(); // Initialize useHistory
 
-  
+    // allows user to toggle password visibility
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
 
+    // send request to backend register root
     const handleRegister = async () => {
       try {
         const response = await fetch('/register', {
@@ -25,6 +26,7 @@ export function RegisterComponent (){
     
         const data = await response.json();
     
+        // navigates to home page after successful login
         if (response.ok) {
           // Registration successful, handle accordingly (e.g., redirect)
           console.log(data.message);

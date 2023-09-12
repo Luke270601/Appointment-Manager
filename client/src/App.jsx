@@ -5,6 +5,7 @@ import RegisterPage from "./Pages/Register-Page";
 import HomePage from "./Pages/Home-Page";
 import AccountForm from './Pages/Account-Page';
 
+// holds routes for each page with the related element
 function App() {
     return (
             <div>

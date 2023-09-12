@@ -75,8 +75,10 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
 app.get('/logout', async (req, res) => {
   try {
+    //sets the current session to null as it will effect the login path
     req.session.user = null;
     return res.json({ message: "Logout successful!" });
   } catch (err) {
@@ -85,12 +87,14 @@ app.get('/logout', async (req, res) => {
   }
 });
 
-
 app.get('/login', (req, res) => {
+  //checks current session user
   if(req.session.user){
+    //returns true to allow condional rendering in the front end
     res.send({loggedIn: true})
   }
   else{
+    //returns false for a similar purpose
     res.send({loggedIn: false})
   }
 })

@@ -1,3 +1,12 @@
+/*
+Description: A small popup login element which handles the users login and 
+subsequent redirection to the main user page
+
+Author: Luke Scott
+
+Date: 13/09/2023 
+*/
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/App.css';

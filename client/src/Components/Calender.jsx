@@ -1,3 +1,11 @@
+/*
+Description: Generates an interactable calander add events to 
+specific days 
+
+Author: Luke Scott
+
+Date: 13/09/2023 
+*/
 import {useEffect} from "react";
 
 export default function Calendar() {

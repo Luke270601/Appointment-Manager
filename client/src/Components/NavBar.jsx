@@ -1,3 +1,12 @@
+/*
+Description: A persistent navbar element to allow
+simple navigation of the web application while keeping 
+track of the logged in state to ensure correct rendering 
+
+Author: Luke Scott
+
+Date: 13/09/2023 
+*/
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import React, { useState, useEffect } from 'react';
@@ -6,6 +15,7 @@ export function NavBar() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   
+  // request logout function in backend
   function logout(){
     fetch("/logout")
       .then(data => {
@@ -23,6 +33,7 @@ export function NavBar() {
       });
   }
 
+  // function to check session status to ensure user is logged in before altering the page
   useEffect(() => {
     fetch("/login")
       .then(response => response.json())
@@ -55,6 +66,7 @@ export function NavBar() {
     );
   }
 
+  // alters links on navbar when logged in or not
   return (
     <div>
         <nav className="navbar">          

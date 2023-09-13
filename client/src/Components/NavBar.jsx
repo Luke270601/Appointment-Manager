@@ -1,28 +1,27 @@
 /*
-Description: A persistent navbar element to allow
-simple navigation of the web application while keeping 
-track of the logged in state to ensure correct rendering 
+Description: A persistent navbar element to allow simple navigation of the web application while keeping track of the logged-in state to ensure correct rendering
 
 Author: Luke Scott
 
 Date: 13/09/2023 
 */
 import { Link } from "react-router-dom";
-import Login from "./Login";
+import Login from "./Login"; // Assuming Login component is imported
 import React, { useState, useEffect } from 'react';
 
 export function NavBar() {
+  // State to track whether a user is logged in
   const [loggedIn, setLoggedIn] = useState(false);
+  // State to track loading status when checking login status
   const [isLoading, setIsLoading] = useState(true);
-  
-  // request logout function in backend
-  function logout(){
+
+  // Function to handle logout by making a request to the backend
+  function logout() {
     fetch("/logout")
       .then(data => {
         if (data.loggedIn) {
           setLoggedIn(true);
-        }
-        else{
+        } else {
           setLoggedIn(false);
         }
         setIsLoading(false); // Set loading state to false when fetch is done
@@ -33,15 +32,14 @@ export function NavBar() {
       });
   }
 
-  // function to check session status to ensure user is logged in before altering the page
+  // Function to check session status to ensure the user is logged in before altering the page
   useEffect(() => {
     fetch("/login")
       .then(response => response.json())
       .then(data => {
         if (data.loggedIn) {
           setLoggedIn(true);
-        }
-        else{
+        } else {
           setLoggedIn(false);
         }
         setIsLoading(false); // Set loading state to false when fetch is done
@@ -55,38 +53,38 @@ export function NavBar() {
   if (isLoading) {
     // Return null while loading to prevent rendering
     return (
-        <nav className="navbar">          
+      <nav className="navbar">
         <div className="logo nav-links">
-        <li><Link to={"/"}>Home</Link></li>
+          <li><Link to={"/"}>Home</Link></li>
         </div>
         <ul className={"nav-links"}>
-            <br></br>
-          </ul>
-        </nav>
+          <br></br>
+        </ul>
+      </nav>
     );
   }
 
-  // alters links on navbar when logged in or not
+  // Alter links on the navbar based on whether the user is logged in or not
   return (
     <div>
-        <nav className="navbar">          
+      <nav className="navbar">
         <div className="logo nav-links">
-        <li><Link to={"/"}>Home</Link></li>
+          <li><Link to={"/"}>Home</Link></li>
         </div>
-      {loggedIn ? (
+        {loggedIn ? (
           <ul className={"nav-links"}>
             <li onClick={logout}><Link to={"/"}>Logout</Link></li>
             <li><Link to={"/account"}>Account</Link></li>
           </ul>
-      ) : (
-        <nav className="navbar">
-          <ul className={"nav-links"}>
-            <li><Login></Login></li>
-            <li><Link to={"/register"}>Register</Link></li>
-          </ul>
-        </nav>
-      )}
-        </nav>
+        ) : (
+            <nav className="navbar">
+              <ul className={"nav-links"}>
+                <li><Login></Login></li>
+                <li><Link to={"/register"}>Register</Link></li>
+              </ul>
+            </nav>
+          )}
+      </nav>
     </div>
   );
 }

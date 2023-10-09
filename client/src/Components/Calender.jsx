@@ -90,28 +90,35 @@ export default function Calendar() {
     let selectedIndex = document.getElementById("months").selectedIndex;
     generateGridItems(selectedIndex, 2023);
   }, [generateGridItems]);
-
+  
   return (
-    <div>
-      <label htmlFor="months">Select a Month:</label>
-      <select id="months" onChange={populateCalendar}>
-        {/* Dropdown options for selecting a month. */}
-        <option value="January">January</option>
-        <option value="February">February</option>
-        <option value="March">March</option>
-        <option value="April">April</option>
-        <option value="May">May</option>
-        <option value="June">June</option>
-        <option value="July">July</option>
-        <option value="August">August</option>
-        <option value="September">September</option>
-        <option value="October">October</option>
-        <option value="November">November</option>
-        <option value="December">December</option>
-      </select>
-      <div id="graph" className="grid-container">
-        {/* Calendar grid container. */}
+    <div id="calendar">
+      <div id="calendar-controls">
+        <input id="year" type="number"></input>
+        <div id="calendar-month-year">
+          <select id="months" onChange={populateCalendar}>
+            {/* Dropdown options for selecting a month. */}
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+      </div>
+      <div id="graph-container">
+        <div id="graph" class="grid-container">
+          {/* Calendar grid items */}
+        </div>
       </div>
     </div>
   );
+  
 }

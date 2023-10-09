@@ -92,13 +92,27 @@ input{
 Calender
  */
 
+ #calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+  }
+  
+  #calendar-controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    flex-direction: column; /* Stack the month selection on top of the calendar grid */
+    align-items: flex-start; /* Center the month selection horizontally */
+    margin-bottom: 20px; /* Add some spacing between the month selection and calendar */
+  }
+  
+
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Creates 7 columns */
-    grid-template-rows: repeat(6, 1fr); /* Creates 7 rows */
-    gap: 10px; /* Gap between grid items */
-    width: 500px; /* Set a width for the grid container */
-    margin: 0 auto; /* Center the grid container */
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 10px;
+    max-width: 500px; /* Set a max width for the grid container */
 }
 
 .grid-item {
@@ -107,10 +121,6 @@ Calender
     padding: 10px;
     text-align: center;
 }
-
-/*
-Base Formatting 
- */
 
 body{
     background-color: #6d6d6d;

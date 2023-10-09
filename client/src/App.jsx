@@ -12,7 +12,7 @@ function App() {
                 <Routes>
                      <Route path={"/"} element={<HomePage/>}></Route>
                      <Route path={"/register"} element={<RegisterPage/>}></Route>
-                     <Route path={"/calender"} element={<CalendarPage/>}></Route>
+                     <Route path={"/calendar"} element={<CalendarPage/>}></Route>
                      <Route path={"/account"} element={<AccountForm/>}></Route>
                 </Routes>
             </div>

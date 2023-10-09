@@ -95,6 +95,7 @@ export default function Calendar() {
     <div id="calendar">
       <div id="calendar-controls">
         <input id="year" type="number"></input>
+        <input type="date"></input>
         <div id="calendar-month-year">
           <select id="months" onChange={populateCalendar}>
             {/* Dropdown options for selecting a month. */}

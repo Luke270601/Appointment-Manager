@@ -6,6 +6,7 @@ Author: Luke Scott
 Date: 13/09/2023 
 */
 import { useEffect } from "react";
+import img from "../Images/calendar.png";
 
 export default function Calendar() {
   // Initialize the gridSize to 49.
@@ -92,10 +93,12 @@ export default function Calendar() {
   }, [generateGridItems]);
   
   return (
+    <div id="scheduler">
     <div id="calendar">
+      <image src={img}></image>
+      <h2>Monthly Schedule</h2>
       <div id="calendar-controls">
         <input id="year" type="number"></input>
-        <input type="date"></input>
         <div id="calendar-month-year">
           <select id="months" onChange={populateCalendar}>
             {/* Dropdown options for selecting a month. */}
@@ -119,6 +122,10 @@ export default function Calendar() {
           {/* Calendar grid items */}
         </div>
       </div>
+    </div>
+    <div id="hours">
+
+    </div>
     </div>
   );
   

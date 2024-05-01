@@ -8,6 +8,7 @@ const app = express();
 const connectToDatabase = require('./db.js'); // Import the MongoDB connection
 
 
+
 app.use(cors({
   origin: ["http://localhost:3000"],
   methods: ["GET", "POST"],
@@ -134,5 +135,39 @@ app.post('/register', async (req, res) => {
     return res.status(500).json({ error: "Internal server error." });
   }
 });
+
+app.post('/addAppointment', async (req, res) => {
+  const { name, email, date, time  } = req.body;
+
+
+  try {
+    const db = await connectToDatabase();
+    const appointmentsCollection = db.collection('Appointments');
+
+    await appointmentsCollection.insertOne({
+     name, email, date, time
+    });
+
+    return res.json({ message: "Appointment Sucessfull!" });
+  } catch (err) {
+    console.error('dog fucked it fr:', err);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+app.post('/getappointments', async (req, res) =>{
+  const { date } = req.body;
+  try {
+    const db = await connectToDatabase();
+    const appointmentsCollection = db.collection('Appointments');
+
+    // Find the user by email
+    const appointments = await appointmentsCollection.find({ date }).project({ time: 1, _id: 0 }).toArray();
+    return res.json(JSON.stringify(appointments));
+  } catch (err) {
+    console.error('Error registering user:', err);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+})
 
 app.listen(5000, () => { console.log("Server starting on port 5000") });

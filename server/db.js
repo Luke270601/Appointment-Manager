@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const url = 'mongodb+srv://lukescott270601:xLpEf3JGNbrvGKHK@appointmentsmanager.tquih5l.mongodb.net/'; // Replace with your MongoDB connection URL
+const url = 'mongodb+srv://lukescott270601:BRbKPruFoN2aQ6tv@appointmentsmanager.tquih5l.mongodb.net/?retryWrites=true&w=majority&appName=AppointmentsManager'; // Replace with your MongoDB connection URL
 const dbName = 'mydb'; // Replace with your database name
 
 const client = new MongoClient(url, { useUnifiedTopology: true });

@@ -39,7 +39,6 @@ export default function Calendar() {
       if (response.ok) {
         // Login successful, handle accordingly (e.g., redirect)
         updateTable(JSON.parse(data))
-        console.log(schedule)
       } else {
         // Login failed, handle accordingly (e.g., show error message)
         console.log(data.error);
@@ -91,17 +90,13 @@ export default function Calendar() {
       { time: "18:00", status:""},
   ]
     for(let i = 0; i < baseSchedule.length; i++){
-      let match = "";
         for (let j = 0; j < appointments.length; j++){
             if (appointments[j].time === baseSchedule[i].time){
-              console.log("Matched")
-              match = "booked"
-              
+              baseSchedule[i].status = "booked"
             } 
         }
-        baseSchedule.status = match; 
     }
-    setSchedule(schedule)
+    setSchedule(baseSchedule)
   }
 
 

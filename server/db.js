@@ -8,10 +8,8 @@ const client = new MongoClient(url, { useUnifiedTopology: true });
 async function connectToDatabase() {
   try {
     await client.connect();
-    console.log('Connected to MongoDB');
     return client.db(dbName);
   } catch (err) {
-    console.error('Error connecting to MongoDB:', err);
     throw err;
   }
 }

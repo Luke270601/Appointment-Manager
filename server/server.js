@@ -101,10 +101,10 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
+  const { firstName, surname, email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required." });
+  if (!email || !password || !firstName || !surname) {
+    return res.status(400).json({ error: "All fields must be filled" });
   }
 
   try {
@@ -126,6 +126,8 @@ app.post('/register', async (req, res) => {
     await usersCollection.insertOne({
       email,
       password: hashedPassword, // Store the hashed password
+      firstName,
+      surname,
       role: 'User'
     });
 

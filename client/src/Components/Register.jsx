@@ -10,11 +10,13 @@ import '../CSS/App.css';
 import { useNavigate } from 'react-router';
 
 export function RegisterComponent() {
-  // State to manage user input for password and its visibility
+  // State to manage user input for registration
+  const [firstName, setFirstName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const navigate = useNavigate(); // Initialize useHistory
+  const navigate = useNavigate();
 
   // Function to allow the user to toggle password visibility
   const togglePasswordVisibility = () => {
@@ -29,19 +31,17 @@ export function RegisterComponent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }), // Send email and password in the request body
+        body: JSON.stringify({ firstName, surname, email, password }), // Include firstName and surname
       });
 
       const data = await response.json();
 
       // Navigate to the home page after successful registration
       if (response.ok) {
-        // Registration successful, handle accordingly (e.g., redirect)
         console.log(data.message);
         navigate("/");
         alert("Account Created, you can now login!");
       } else {
-        // Registration failed, handle accordingly (e.g., show error message)
         console.log(data.error);
       }
     } catch (error) {
@@ -54,9 +54,17 @@ export function RegisterComponent() {
       <div className='register-box'>
         <form>
           <li>Firstname:</li>
-          <input type='text'></input>
+          <input
+            type='text'
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
           <li>Surname:</li>
-          <input type='text'></input>
+          <input
+            type='text'
+            value={surname}
+            onChange={e => setSurname(e.target.value)}
+          />
           <li>Email:</li>
           <input
             type="email"
@@ -65,7 +73,7 @@ export function RegisterComponent() {
             onChange={e => setEmail(e.target.value)}
           />
           <li>Confirm email:</li>
-          <input type='text'></input>
+          <input type='email' />
           <li>Password:</li>
           <input
             type={showPassword ? 'text' : 'password'}
@@ -78,7 +86,7 @@ export function RegisterComponent() {
             {showPassword ? 'Hide' : 'Show'}
           </button>
           <li>Confirm Password:</li>
-          <input type='password'></input>
+          <input type='password' />
         </form>
         <button onClick={handleRegister}>Register</button>
       </div>
